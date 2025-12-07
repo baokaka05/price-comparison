@@ -1,0 +1,198 @@
+/* src/App.css */
+
+body {
+  background-color: #f4f7f6; /* 柔和的背景色 */
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.container {
+  max-width: 1600px; /* 容器加寬，這樣才塞得下四個 */
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- 1. 標題與搜尋區 (紫色框需求：置中) --- */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平置中 */
+  justify-content: center;
+  margin-bottom: 50px; /* 與下方卡片的距離 */
+}
+
+.header h1 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.search-box {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* 讓內部的 input 再次確保置中 */
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 500px; /* 搜尋框最大寬度 */
+  padding: 15px 25px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  outline: none;
+  transition: all 0.3s ease;
+  text-align: center; /* 文字輸入時也置中 */
+}
+
+.search-box input:focus {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-color: #3498db;
+}
+
+/* --- 2. 網格佈局 (綠色框需求：一排4個) --- */
+.grid-container {
+  display: grid;
+  /* 設定最小寬度為 240px。
+     在 1400px 的螢幕上，扣掉間距，剛好會自動排成 4 列。
+     (280 * 4 = 1120，還有空間放間距)
+  */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px; /* 卡片之間的間距加大一點，比較透氣 */
+}
+
+/* --- 商品卡片 --- */
+.product-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden; /* 確保內容不超出圓角 */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 420px; /* 給卡片一個較高的固定高度，讓圖片有空間 */
+  position: relative;
+  border: 1px solid #f0f0f0;
+}
+
+.product-card:hover {
+  transform: translateY(-10px); /* 滑鼠移上去會有浮起效果 */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* --- 3. 圖片區 (去除白底與位置調整) --- */
+.image-container {
+  height: 220px; /* 圖片區佔卡片一半的高度 */
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* 保持比例 */
+  
+  /* 【關鍵】混合模式：讓圖片的白色背景變透明，融入卡片 */
+  mix-blend-mode: multiply; 
+  filter: contrast(1.05); /* 稍微增加對比度讓商品更立體 */
+}
+
+.no-image {
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* 狀態標籤 (右上角) */
+.status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.status-badge.coles { background-color: #e01a22; }
+.status-badge.woolies { background-color: #178c17; }
+.status-badge.draw { background-color: #7f8c8d; }
+
+/* --- 內容區 --- */
+.card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.product-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  /* 限制標題最多兩行 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 46px; 
+}
+
+/* 價格比較區 (灰底圓角框) */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-top: auto;
+}
+
+.price-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48%;
+}
+
+.store-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #95a5a6;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.price-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #34495e;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* 贏家樣式 */
+.winner .price-val { color: #27ae60; transform: scale(1.1); }
+.winner.coles-win .price-val { color: #c0392b; }
+.loser .price-val { 
+  color: #bdc3c7; 
+  text-decoration: line-through; 
+  font-size: 14px; 
+}
